@@ -1,13 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CharacterController2D : MonoBehaviour
 {
+    [Header("Player statistic")]
     public float playerSpeed = 5f;
+    public float playerHealth = 100f;
 
-    public Sprite player;
+    [Space]
+    [Header("Character sprites")]
+    public Sprite playerFront;
     public Sprite playerBack;
     public Sprite playerLeft;
     public Sprite playerRight;
@@ -17,14 +18,13 @@ public class CharacterController2D : MonoBehaviour
     private Rigidbody2D _rbody;
     private SpriteRenderer _spriteRenderer;
 
-    void Start()
+    private void Start()
     {
         _rbody = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
@@ -32,7 +32,7 @@ public class CharacterController2D : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.S))
         {
-            _spriteRenderer.sprite = player;
+            _spriteRenderer.sprite = playerFront;
         } 
         if (Input.GetKeyDown(KeyCode.D))
         {
@@ -43,7 +43,6 @@ public class CharacterController2D : MonoBehaviour
             _spriteRenderer.sprite = playerLeft;
         }
         Move();
-
     }
 
     private void Move()
@@ -53,10 +52,5 @@ public class CharacterController2D : MonoBehaviour
 
         _movementVector = new Vector2(horizontalInput * playerSpeed, verticalInput * playerSpeed);
         _rbody.velocity = _movementVector;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        
     }
 }
